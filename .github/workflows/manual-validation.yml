@@ -1,0 +1,30 @@
+name: Manual scientific validation
+
+# Intentionally no push, pull_request or schedule triggers.
+# The maintainer must explicitly select "Run workflow".
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scientific-tests:
+    name: EHT, parameter/GUI and spin/SOC unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MPLBACKEND: "Agg"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install package and optional dependencies
+        run: python -m pip install -e ".[gui]"
+      - name: Run core and input/GUI unit tests
+        run: python -m unittest discover -s pyaehmop/tests -p "test_*.py" -v
+      - name: Run spin/SOC unit tests
+        run: python -m unittest discover -s pyaehmop/SPIN_TEST/tests -p "test_*.py" -v
