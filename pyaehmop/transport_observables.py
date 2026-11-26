@@ -33,9 +33,9 @@ def current_voltage(energy,T,bias,temperature=300.,mu=0.):
             val=trapezoid(np.interp(x,e,t),x)
         else:
             # Refine the quadrature if input energy spacing exceeds kBT.
-            step=KB*temperature/5
+            step=KB*temperature/20
             left=max(e[0],lo-margin); right=min(e[-1],hi+margin)
-            x=np.unique(np.r_[e,np.linspace(left,right,int(np.ceil((right-left)/step))+1)])
+            x=np.linspace(left,right,int(np.ceil((right-left)/step))+1)
             val=trapezoid(np.interp(x,e,t)*(expit((hi-x)/(KB*temperature))-expit((lo-x)/(KB*temperature))),x)
         out.append(np.sign(b)*G0*val)
     return np.array(out)
