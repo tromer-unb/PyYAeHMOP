@@ -27,6 +27,10 @@ def _main():
     p.add_argument("--png-dir",type=Path,help="Optional PNG plots in friendly mode")
     p.add_argument("--easy",action="store_true",help="Interpret input as friendly configuration")
     args=p.parse_args()
+    if args.input.name.endswith('.transport.job'):
+        from .transport_job import run_job
+        print(run_job(args.input,args.workers))
+        return 0
     from .friendly import is_easy_input
     if args.easy or is_easy_input(args.input):
         return _run_easy(args)
