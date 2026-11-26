@@ -309,3 +309,7 @@ The original new Python project is released under the [MIT License](LICENSE). Re
 ---
 
 <p align="center"><strong>Built for reproducible extended Hückel research — from molecules to crystals, from the command line to the desktop.</strong></p>
+
+## Experimental quantum transport (EHT-NEGF)
+
+See the [graphene transport benchmark](examples/transport/README.md) for the standalone nonorthogonal NEGF module, frozen BandFit parameters, archived comparison with TranSIESTA, references and local run instructions. No automatic calculations are triggered.
